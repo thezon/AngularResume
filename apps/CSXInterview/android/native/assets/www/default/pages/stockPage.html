@@ -1,0 +1,56 @@
+<script>
+ 	function getStock() {
+ 	
+ 			stockSym = $("#stock-symbol-in").val()
+			
+              var invocationData = {
+                      adapter : 'RestService',
+                      procedure : 'getStock',
+                      parameters : [stockSym]
+                  };
+
+	   		obj = WL.Client.invokeProcedure(invocationData,{
+   					onSuccess : loadStockSuccess,
+					onFailure : loadFailure});
+         		 }
+
+      function loadStockSuccess(result){ 
+           $("#stock-value").html("Current Value: " + result.invocationResult.query.results.quote.AskRealtime);
+           $("#stock-year-change").html("Year Change: " + result.invocationResult.query.results.quote.ChangeFromYearHigh);
+           $("#stock-name").html("Name: " + result.invocationResult.query.results.quote.Name);
+         }
+         
+      function loadFailure(result){
+     	 $("#stock-name").html("An error has occured. Please confirm you are online.\n");
+      }
+           
+</script>
+<br/>
+<div  ng-controller="stock-controller">
+	<table >
+		<tr>
+			<td>
+				<input  placeholder="Enter Stock" id="stock-symbol-in" class="form-control" popover-placement="bottom"  popover="Stock Symbol"  popover-trigger="focus" type="text"  maxlength="5"></input>
+			</td>
+			<td>
+				<a href="#" onclick="getStock()"><img alt="" src="images/go.png" style="width: 30px; height: 30px;"></a>
+			</td>
+		</tr>
+		<tr>
+			<td style="font-size: large; font: bolder; color: black; text-align: center;">
+				<span id="stock-name"></span>
+			</td>
+		</tr>
+		<tr>
+			<td style="font-size: large; font: bolder; color: black; text-align: center;">
+				<span id="stock-value"></span>
+			</td>
+		</tr>
+		<tr>
+			<td style="font-size: large; font: bolder; color: black; text-align: center;">
+				<span id="stock-year-change"></span>
+			</td>
+		</tr>
+	</table>
+</div>
+<br/>

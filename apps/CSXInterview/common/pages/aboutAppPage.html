@@ -1,0 +1,29 @@
+<script >
+	 $(document).ready(function(){
+			$("#do-zoom").click(function(){
+				$('#dep-photo').elevateZoom({
+			    zoomType: "inner",
+				cursor: "crosshair",
+				zoomWindowFadeIn: 500,
+				zoomWindowFadeOut: 750
+		   		});
+		   		
+		   		$('.menu-items').css("visibility","hidden");
+		   		$('#do-zoom').css("visibility","hidden");
+		   		$('#stop-zoom').css("visibility","visible");
+			});
+	   
+			$("#stop-zoom").click(function(){
+				$('.zoomWindowContainer').remove();
+				$('.zoomContainer').remove();
+				$('.menu-items').css("visibility","visible");
+				$('#do-zoom').css("visibility","visible");
+				$('#stop-zoom').css("visibility","hidden");
+			});
+   	 });
+</script>
+<div>
+	<a id="do-zoom" href="#"><img src="images/zoom-in.png" width="30" height="30" alt="csx"/></a>
+	<a id="stop-zoom" style="visibility: hidden;" href="#"><img src="images/zoom-out.png" width="30" height="30" alt="csx"/></a>
+	<img id="dep-photo" src="images/appDep.png" style="width:100%; height:100%;" alt="csx" data-zoom-image="images/appDep.png"/>
+</div>

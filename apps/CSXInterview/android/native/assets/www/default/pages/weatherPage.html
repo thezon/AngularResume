@@ -1,0 +1,84 @@
+<script>
+
+	function getLocation() {
+ 	
+ 			weatherLoc = $("#weather-loc-in").val();
+			
+              var invocationData = {
+                      adapter : 'RestService',
+                      procedure : 'getLocation',
+                      parameters : [weatherLoc]
+                  };
+
+	   		obj = WL.Client.invokeProcedure(invocationData,{
+   					onSuccess : loadLocationSuccess,
+					onFailure : loadFailure});
+         		 }
+         		 
+      function loadLocationSuccess(result){ 
+           locKey = result.invocationResult.query.results.place[0].admin1.woeid;
+         getWeather(locKey);
+         }         		 
+	
+ 	function getWeather(weatherLoc) {
+ 	
+ 			//weatherLoc = $("#weather-loc-in").val();
+			
+              var invocationData = {
+                      adapter : 'RestService',
+                      procedure : 'getWeather',
+                      parameters : [weatherLoc]
+                  };
+
+	   		obj = WL.Client.invokeProcedure(invocationData,{
+   					onSuccess : loadWeatherSuccess,
+					onFailure : loadFailure});
+         		 }
+
+      function loadWeatherSuccess(result){ 
+           $("#location-name").html("Location Name: " + result.invocationResult.query.results.channel.description);
+           $("#location-temp").html("Temp: " + result.invocationResult.query.results.channel.item.condition.temp);
+           $("#location-humidity").html("Humidity: " + result.invocationResult.query.results.channel.atmosphere.humidity);
+           $("#location-wind-speed").html("Wind: " + result.invocationResult.query.results.channel.wind.speed);
+         }
+         
+      function loadFailure(result){
+      alert("fail");
+     	 $("#location-name").html("An error has occured. Please confirm you are online.\n");
+      }
+           
+</script>
+<br/>
+<div ng-controller="weather-controller">
+	<table>
+		<tr>
+			<td>
+				<input placeholder="Enter Location" id="weather-loc-in" class="form-control" popover-placement="bottom"  popover="State, City or County"  popover-trigger="focus" type="text"  maxlength="15"></input>
+			</td>
+			<td>
+				<a href="#" onclick="getLocation()"><img alt="" src="images/go.png" style="width: 30px; height: 30px;"></a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="font-size: large; font: bolder; color: black; text-align: center;">
+				<span id="location-name"></span>
+			</td>
+		</tr>
+		<tr>
+			<td style="font-size: large; font: bolder; color: black; text-align: center;">
+				<span id="location-temp"></span>
+			</td>
+		</tr>
+		<tr>
+			<td style="font-size: large; font: bolder; color: black; text-align: center;">
+				<span id="location-humidity"></span>
+			</td>
+		</tr>		
+		<tr>
+			<td style="font-size: large; font: bolder; color: black; text-align: center;">
+				<span id="location-wind-speed"></span>
+			</td>
+		</tr>
+	</table>
+</div>
+<br/>

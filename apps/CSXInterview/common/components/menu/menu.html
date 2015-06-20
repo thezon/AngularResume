@@ -1,0 +1,50 @@
+<script type="text/javascript">
+	  $(document).ready(function() {
+	     $("#menu").mmenu({});
+	     
+	     //resolves menu close issue ~ SB
+	     $('#menu').click(function(){
+	     		$('#mm-blocker').mousedown();
+   		});
+	  });
+</script>
+
+<table id="header" style="width: 100%; margin: 0px; padding:0px; border-bottom: solid thin;">
+	<tr >
+		<td id="menu-items" style="width: 80px;">
+			<a class="menu-items" href="#menu"><img src="images/menu.png" width="30" height="30" alt="csx"/></a>
+			<a class="menu-items" href="#" ng-click="pgc.changePage('Home')"><img src="images/home.png" width="30" height="30" alt="csx"/></a>
+		</td>
+		<td >
+			<table style="margin: 0px; padding:0px; width: 100%; text-align:center;">
+			<tr>
+				<td>
+					<label style="margin: 0px; padding:0px;">CSX Interview App</label>
+				</td>
+			</tr>
+			<tr>
+				<td >
+					{{pageKey}}
+				</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<div id="menu" onclick=" $('#mm-blocker').mousedown()">
+	<ul>
+	   <li onclick="$('#home-click').click()"><a href="#">Home</a></li>
+	   <li onclick="$('#weather-click').click()" ><a href="#">Weather</a></li>
+	   <li onclick="$('#stock-click').click()" ><a href="#">Stock</a></li>
+	   <li onclick="$('#about-app-click').click()"><a href="#">About App</a></li>
+	   <li onclick="$('#about-me-click').click()"><a href="#">About Me</a></li>
+ 	</ul>
+</div>
+
+<!-- Resolves namespace issue ~ SB -->
+<div id="home-click" ng-click="pgc.changePage('Home')"></div>
+<div id="weather-click" ng-click="pgc.changePage('Weather')"></div>
+<div id="stock-click" ng-click="pgc.changePage('Stock')"></div>
+<div id="about-app-click" ng-click="pgc.changePage('About Application')"></div>
+<div id="about-me-click" ng-click="pgc.changePage('About Developer')"></div>
